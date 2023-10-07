@@ -1,9 +1,11 @@
 from typing import Optional
 from pydantic import BaseModel
-
+class LoginCredentials(BaseModel):
+    email: str
+    password: str
 class User(BaseModel):
-    username: Optional[str] = None
+    username: str
     password: str
     email: str
-    name: Optional[str] = None
-    role: str 
+    name: str
+    role: str

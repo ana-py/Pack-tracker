@@ -8,7 +8,7 @@ from bson import ObjectId
 
 package_router = APIRouter()
 
-@package_router.get("/packages", dependencies=[Depends(JWTBearer)])
+@package_router.get("/packages", dependencies=[Depends(JWTBearer())])
 def get_packages():
     result = db.packages.find()
     result_list = list(result)
@@ -24,19 +24,19 @@ def get_package(id: str):
         return JSONResponse(status_code=404, content={"message": "Package not found"})
     return JSONResponse(status_code=200, content=jsonable_encoder(result))
 
-@package_router.post("/packages", dependencies=[Depends(JWTBearer)])
+@package_router.post("/packages", dependencies=[Depends(JWTBearer())])
 def add_package(package: Package):
-    package_data = package.dict()
+    package_data = package.model_dump()
     db.packages.insert_one(package_data)
     return JSONResponse(status_code=200, content={"message": "Package added successfully"}) 
 
-@package_router.put("/packages/{id}", dependencies=[Depends(JWTBearer)])
+@package_router.put("/packages/{id}", dependencies=[Depends(JWTBearer())])
 def update_package(id: str, package: Package):
     result = get_package(id)
     
     if not result:
         return JSONResponse(status_code=404, content={"message": "Package not found"})
-    for key, value in package.dict().items():
+    for key, value in package.model_dump().items():
         db.packages.update_one({"_id": ObjectId(id)}, {"$set": {key : value}})
         
     return JSONResponse(status_code=200, content={"message": "Package updated successfully"})

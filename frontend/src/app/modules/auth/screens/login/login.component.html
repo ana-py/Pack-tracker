@@ -1,0 +1,32 @@
+<div class="text-center mt-5">
+    <h1><strong>Pack Tracker </strong></h1>
+</div>
+<div class="row justify-content-center">
+    <div class="col-3">   
+        <form [formGroup]="loginForm" class="row">
+            <mat-form-field appearance="outline" class="mt-2">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput formControlName="email">
+                <mat-error *ngIf="loginForm.controls['email'].invalid">{{getErrorMessage('email')}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="mt-2">
+                <mat-label>Enter your password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                <mat-error *ngIf="loginForm.controls['password'].invalid">{{getErrorMessage('password')}}</mat-error>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+        </form>
+        <div class="row mx-0">
+            <button mat-flat-button color="primary"
+            (click)="login()">Login</button>
+        </div>
+         
+    </div>
+   
+</div>
+
+
+
