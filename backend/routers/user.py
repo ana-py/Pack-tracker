@@ -1,3 +1,4 @@
+from bson import ObjectId
 from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
 from middlewares.jwt_bearer import JWTBearer
@@ -28,6 +29,20 @@ def create_user(user: User):
 @user_router.get('/users', dependencies=[Depends(JWTBearer())])
 def get_users():
     result = db.users.find()
+    result_list = list(result)
+    for item in result_list:
+        item['_id'] = str(item['_id'])
+    return JSONResponse(status_code=200, content=result_list)
+
+@user_router.get('/users/deliverymen', dependencies=[Depends(JWTBearer())])
+def get_deliverymen(search: str = None):
+    if not search:
+        result = db.users.find({"role": "deliveryman"})
+    else:
+        if ObjectId.is_valid(search):
+            result = db.users.find({"_id": ObjectId(search)})        
+        else:
+            result = db.users.find({"name": {"$regex": search}})        
     result_list = list(result)
     for item in result_list:
         item['_id'] = str(item['_id'])

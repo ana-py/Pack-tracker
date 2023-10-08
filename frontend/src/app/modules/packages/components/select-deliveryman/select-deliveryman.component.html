@@ -1,0 +1,44 @@
+<div class="text-center">
+    <span class=" mt-4" mat-dialog-title>Select a delivery person</span>
+    <div mat-dialog-content class="py-2">  
+        <div class="row">
+            <div class="col">
+                <shared-search-box 
+                    placeholder="Search by ID or name"
+                    (onValue)="search($event)" >
+                </shared-search-box>
+            </div>
+        </div>
+    </div>
+
+        <div mat-dialog-content *ngIf="deliverymen.length === 0 && !searchPerformed; else table" class="alert alert-warning text-center">
+            No users found.
+        </div>
+    
+        <ng-template #table>
+            <div mat-dialog-content>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr (click)="selectDeliveryman(deliveryman)"
+                            *ngFor="let deliveryman of deliverymen;">
+                            <td>{{ deliveryman._id }}</td>
+                            <td>{{ deliveryman.name }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </ng-template>
+        
+    </div>
+    
+
+
+    
+    

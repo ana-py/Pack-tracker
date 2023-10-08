@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from typing import List, Optional
+from datetime import datetime
 
 class Receiver(BaseModel):
     name: str
@@ -12,18 +13,22 @@ class Route(BaseModel):
     date: str
 
 class Deliveryman(BaseModel):
-    user_id: str
+    user_id: Optional[str] = None
     name: str
+
+class Status(BaseModel):
+    status: str
+    date: datetime
 
 class Package(BaseModel):
     description: str 
     size: str
     sender: str
     receiver_info: Receiver
-    send_date: str
-    status: List[str]  
+    shipment_date: datetime
+    status_list: List[Status]  
     route_list: List[Route]
-    deliveryman: Optional[str] = None
+    deliveryman: Optional[Deliveryman] = None
     received_date: Optional[str] = None
 
 

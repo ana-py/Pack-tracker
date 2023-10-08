@@ -1,0 +1,86 @@
+<div class="mb-4 px-2">
+    <span class="text-center mt-4" mat-dialog-title>New package</span>
+    <form [formGroup]="newPackageForm"(ngSubmit)="saveData()">
+        <div mat-dialog-content class="pt-1 pb-0">
+            <mat-form-field appearance="outline" class="col-12">
+                <mat-label>Description</mat-label>
+                <input matInput formControlName="description">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-12">
+                <mat-label>Size</mat-label>
+                <input matInput formControlName="size">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-12">
+                <mat-label>Sender name</mat-label>
+                <input matInput formControlName="sender">
+            </mat-form-field>
+            <div formArrayName="route_list">
+                <div formGroupName="0">
+                    <mat-form-field appearance="outline" class="col-12" >
+                        <mat-label>Location</mat-label>
+                        <input matInput formControlName="location">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row justify-content-between">
+                <mat-form-field appearance="outline" class="col-6">
+                    <mat-label>Date of shipment</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="shipment_date"
+                        placeholder="MM/DD/YYYY">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field> 
+                <div formArrayName="status_list" class="col-6">
+                    <div formGroupName="0">
+                        <mat-form-field appearance="outline" class="col-12">
+                        <mat-label>Delivery status</mat-label>
+                        <mat-select formControlName="status">
+                            <mat-option value="processing">Processing</mat-option>
+                            <mat-option value="inTransit">In transit</mat-option>
+                            <mat-option value="delivered">Delivered</mat-option>
+                        </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center  justify-content-between">
+                <button type="button" class="col-6 btn delivery-button"
+                        (click) = selectDeliveryman()>
+                    Select a delivery person   
+                </button>
+                <div formGroupName="deliveryman"class="pt-3 row">
+                    <mat-form-field appearance="outline" class="col-6">
+                        <mat-label>ID</mat-label>
+                        <input matInput disabled [value]="deliveryman.user_id">
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="outline" class="col-6">
+                        <mat-label>Name</mat-label>
+                        <input matInput disabled [value]="deliveryman.name">
+                    </mat-form-field>
+                </div>
+                
+            </div>
+            <mat-label>Receiver information</mat-label>
+            <div formGroupName="receiver_info"class="pt-3 ">
+                <mat-form-field appearance="outline" class="col-12">
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName="name">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-12">
+                    <mat-label>Address</mat-label>
+                    <input matInput formControlName="address">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-12 mb-0">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email">
+                </mat-form-field>
+            </div>
+        </div>
+        <div mat-dialog-actions class="d-flex justify-content-center">
+            <button (click)="onCancel()" class="btn btn-outline-custom mx-2 col-3">Cancel</button>
+            <button type="submit" class="btn btn-success mx-2 col-3">Save</button>
+        </div>
+    </form>
+</div>

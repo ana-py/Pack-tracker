@@ -33,7 +33,6 @@ def add_package(package: Package):
 @package_router.put("/packages/{id}", dependencies=[Depends(JWTBearer())])
 def update_package(id: str, package: Package):
     result = get_package(id)
-    
     if not result:
         return JSONResponse(status_code=404, content={"message": "Package not found"})
     for key, value in package.model_dump().items():

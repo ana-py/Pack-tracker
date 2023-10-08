@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { InterceptorService } from './modules/shared/services/interceptor.service';
+import { PackagesModule } from './modules/packages/packages.module';
 
 @NgModule({
   declarations: [

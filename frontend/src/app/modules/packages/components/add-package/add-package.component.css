@@ -1,0 +1,14 @@
+.btn-outline-custom {
+    background-color: transparent; 
+    border: 1px solid #198754; 
+    color: #198754; 
+  }
+
+.delivery-button {
+  color : #198754;
+}
+
+.delivery-button:hover {
+  color : #198754;
+  border: none;
+}
