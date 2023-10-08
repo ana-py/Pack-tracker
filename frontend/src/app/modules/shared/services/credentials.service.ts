@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LoginResponse, UserData } from '../interfaces/credentials.interfaces';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,7 @@ export class CredentialsService {
     localStorage.setItem('role', value);
   }
   
-  constructor() {}
+  constructor(private router: Router) {}
 
   setCredentials(credentials:LoginResponse){
     this.token = credentials.token || '';
@@ -50,5 +51,10 @@ export class CredentialsService {
 
   checkRole(role:string):boolean{
     return this.role === role;
+  }
+
+  navigatetoMainPage(role: string){
+    return role == 'admin' ? this.router.navigate(['/admin/packages']) : this.router.navigate(['/deliveryman/packages']);
+    
   }
 }

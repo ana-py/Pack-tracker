@@ -8,7 +8,7 @@ const routes: Routes = [
     path: "",
     children: [
       {
-        path: "packages",
+        path: "",
         component: PackagesPageComponent,
       },
       {

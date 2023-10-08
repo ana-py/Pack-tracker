@@ -17,13 +17,21 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children:[
       {
-        path:'packages',
-        loadChildren: () => import('./modules/packages/packages.module').then(m => m.PackagesModule)
+        path:'admin/packages',
+        loadChildren: () => import('./modules/packages/packages.module').then(m => m.PackagesModule),
+        canActivate: [AuthGuard],
+        data: {permissions: ['admin']}
       },
       {
-        path:'users',
-        loadChildren: () => import('./modules/users/users.module').then(m => m.UsersModule)
+        path:'admin/users',
+        loadChildren: () => import('./modules/users/users.module').then(m => m.UsersModule),
+        canActivate: [AuthGuard],
+        data: {permissions: ['admin']}
       },
+      // {
+      //   path: 'deliveryman/packages',
+      //   loadChildren: () => import('./modules/packages/packages.module').then(m => m.PackagesModule),
+      // }.
       {
         path:'**',
         redirectTo:'packages'
