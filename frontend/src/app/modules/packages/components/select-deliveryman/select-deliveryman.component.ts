@@ -27,7 +27,6 @@ export class SelectDeliverymanComponent implements OnInit{
     this.usersService.get_deliveryman(term)
     .subscribe((deliverymen: User[]) => {
       this.deliverymen = deliverymen;
-      console.log(deliverymen);
     } )
   }
 

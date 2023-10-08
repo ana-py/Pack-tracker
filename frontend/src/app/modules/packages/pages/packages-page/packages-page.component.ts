@@ -9,5 +9,5 @@ import { PageEvent } from '@angular/material/paginator';
   styleUrls: ['./packages-page.component.css']
 })
 export class PackagesPageComponent {
-  
+
 }

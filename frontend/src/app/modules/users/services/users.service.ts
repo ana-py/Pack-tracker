@@ -19,8 +19,23 @@ export class UsersService {
     const headers = new HttpHeaders({
         Authorization: `Bearer ${token}`,
       });
-    console.log(`${this.baseUrl}/users/deliverymen${param}`)
+
     return this.httpClient.get<User[]>(`${this.baseUrl}/users/deliverymen${param}`, {headers});
   }
 
+  get_users(): Observable<User[]> {
+    const token = this.credentialsService.token;
+    const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+    return this.httpClient.get<User[]>(`${this.baseUrl}/users`, {headers});
+  }
+
+  create_user(user: User): Observable<User> {
+    const token = this.credentialsService.token;
+    const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+    return this.httpClient.post<User>(`${this.baseUrl}/users`, user, {headers});
+  }
 }

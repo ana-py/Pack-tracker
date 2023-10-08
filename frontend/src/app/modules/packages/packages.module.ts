@@ -22,8 +22,8 @@ import { UsersModule } from '../users/users.module';
     PackagesRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
-    SharedModule,
-    UsersModule
+    UsersModule,
+    SharedModule
   ]
 })
 export class PackagesModule { }

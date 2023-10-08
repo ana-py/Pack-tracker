@@ -21,11 +21,15 @@ const routes: Routes = [
         loadChildren: () => import('./modules/packages/packages.module').then(m => m.PackagesModule)
       },
       {
+        path:'users',
+        loadChildren: () => import('./modules/users/users.module').then(m => m.UsersModule)
+      },
+      {
         path:'**',
         redirectTo:'packages'
       }
     ]
-  }
+  },
 ];
 
 @NgModule({
