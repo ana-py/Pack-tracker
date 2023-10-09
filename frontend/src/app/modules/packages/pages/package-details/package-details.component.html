@@ -1,0 +1,67 @@
+<h1>Package Details</h1>
+<hr />
+<div *ngIf="package">
+  <button
+    *ngIf="!package.received_date; else certified"
+    class="btn btn-primary mb-3"
+    (click)="confirmDelivery()"
+  >
+    Confirm delivery
+  </button>
+  <ng-template #certified>
+    <div class="alert alert-success">
+      <strong>Certified!</strong> This package has been delivered.
+    </div>
+  </ng-template>
+  <div class="card mb-3">
+    <div class="card-body">
+      <h2 class="card-title">Package Information</h2>
+      <p class="card-text">
+        <strong>Tracking ID:</strong> {{ package._id }} <br />
+        <strong>Current status:</strong>
+        {{
+          package.status_list[package.status_list.length - 1].status
+            | titlecase
+        }}
+        <br />
+        <strong>Description:</strong> {{ package.description }} <br />
+        <strong>Size:</strong> {{ package.size | titlecase }} <br />
+        <strong>Sender:</strong> {{ package.sender | titlecase }} <br />
+        <strong>Receiver:</strong> {{ package.receiver_info.name | titlecase }} <br />
+      </p>
+    </div>
+  </div>
+  <div class="card mb-3">
+    <div class="card-body">
+      <h2 class="card-title">Delivery Information</h2>
+      <p class="card-text">
+        <strong>Sent from:</strong> {{ package.route_list[0].location }} <br />
+        <strong>Shipping date: </strong>{{ package.shipment_date | date }} <br />
+        <strong>Destination address:</strong> {{ package.receiver_info.address }} <br />
+        <strong>Deliveryman:</strong> {{ package.deliveryman.name }} <br />
+      </p>
+    </div>
+  </div>
+  <div class="d-flex gap-4">
+    <div class="card w-50">
+      <div class="card-body">
+        <h2 class="card-title">Route log</h2>
+        <ol>
+          <li *ngFor="let route of package.route_list">
+            The package arrived to <strong>{{ route.location }}</strong> on <strong>{{ route.date | date }}</strong>
+          </li>
+        </ol>
+      </div>
+    </div>
+    <div class="card col-12 w-50">
+      <div class="card-body">
+        <h2 class="card-title">Status log</h2>
+        <ol>
+          <li *ngFor="let status of package.status_list">
+            The package status was changed to <strong>{{ status.status | titlecase }}</strong> on <strong>{{ status.date | date }}</strong>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>

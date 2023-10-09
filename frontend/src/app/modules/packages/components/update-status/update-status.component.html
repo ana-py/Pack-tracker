@@ -1,0 +1,20 @@
+<div class="text-center mb-4">
+    <span class="mt-4" mat-dialog-title>Update status</span>
+    <h3>Tracking number: {{ this.pack._id }}</h3>
+    <h3>Package description: {{ this.pack.description }}</h3>
+    <h3>Current status: <strong>{{ this.currentStatus.status | titlecase }}</strong> since {{ this.currentStatus.date | date }}</h3>
+    <form [formGroup]="statusGroup">
+        <mat-form-field appearance="outline">
+        <mat-label>Delivery status</mat-label>
+        <mat-select formControlName="status">
+            <mat-option value="processing">Processing</mat-option>
+            <mat-option value="inTransit">In transit</mat-option>
+            <mat-option value="delivered">Delivered</mat-option>
+        </mat-select>
+        </mat-form-field>
+    </form>
+    <div class="d-flex justify-content-center gap-4">
+        <button type="button" class="btn btn-danger" (click)="cancel()">Cancel</button>
+        <button type="button" class="btn btn-success" (click)="saveData()">Update</button>
+    </div>
+</div>

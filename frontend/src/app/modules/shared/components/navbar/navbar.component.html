@@ -1,0 +1,37 @@
+
+<h1><Strong>Pack Tracker</Strong></h1>
+  <hr>
+  
+  <ul class="list-group">
+    <li routerLink="packages/adminPackages" 
+      *ngIf="credentialsService.checkRole('admin')"
+      routerLinkActive="active" 
+      class="list-group-item">
+      Packages
+    </li>
+    <li routerLink="packages/deliverymanPackages" 
+      *ngIf="credentialsService.checkRole('deliveryman')"
+      routerLinkActive="active" 
+      class="list-group-item">
+      Packages
+    </li>
+    <li routerLink="admin/users" 
+      *ngIf="credentialsService.checkRole('admin')"
+      routerLinkActive="active" 
+      class="list-group-item">
+      Users
+    </li>
+    <li routerLink="packages/packagesReports" 
+      *ngIf="credentialsService.checkRole('admin')"
+      routerLinkActive="active" 
+      class="list-group-item">
+      Reports
+    </li>
+    <li class="list-group-item" (click)="logout()">
+      Cerrar Sesión
+    </li>
+  </ul> 
+
+ 
+
+

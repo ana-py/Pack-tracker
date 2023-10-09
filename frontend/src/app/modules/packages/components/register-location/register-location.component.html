@@ -1,0 +1,23 @@
+<div class="text-center mb-4">
+  <span class="mt-4" mat-dialog-title>Register Location</span>
+  <h3>Tracking number: {{ this.pack._id }}</h3>
+  <h3>Package description: {{ this.pack.description }}</h3>
+  <h3>
+    Current location: <strong>{{ this.currentLocation.location }}</strong> since
+    {{ this.currentLocation.date | date }}
+  </h3>
+  <form [formGroup]="locationGroup">
+    <mat-form-field appearance="outline">
+      <mat-label>Location</mat-label>
+      <input matInput formControlName="location" />
+    </mat-form-field>
+  </form>
+  <div class="d-flex justify-content-center gap-4">
+    <button type="button" class="btn btn-danger" (click)="cancel()">
+      Cancel
+    </button>
+    <button type="button" class="btn btn-success" (click)="saveData()">
+      Update
+    </button>
+  </div>
+</div>

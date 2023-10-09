@@ -1,0 +1,67 @@
+<section class="pt-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <h1><strong>My active packages</strong></h1>
+    </div>
+    <div class="table-responsive" *ngIf="packages.length > 0; else noPackages">
+        <table class="table table-hover mt-3 text-center align-middle">
+        <thead>
+            <tr>
+            <th class="sorteable-th">
+                <div class="d-flex justify-content-center align-items-center gap-2">
+                    <span>#</span>
+                </div>
+            </th>
+            <th class="sorteable-th">
+                <div class="d-flex justify-content-center align-items-center gap-2">
+                <span>ID</span>
+                </div>
+            </th>
+            <th class="sorteable-th">
+                <div class="d-flex justify-content-center align-items-center gap-2">
+                <span>Description</span>
+                </div>
+            </th>
+            <th>Size</th>
+            <th class="sorteable-th">
+                <div class="d-flex justify-content-center align-items-center gap-2">
+                <span>Status</span>
+                </div>
+            </th>
+            <th>Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let package of packages, let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ package._id }}</td>
+            <td>{{ package.description || "—" }}</td>
+            <td>{{ package.size || "—" }}</td>
+            <td>{{ package.status_list.length > 0 ? package.status_list[package.status_list.length - 1].status : "—" }}</td>
+            <td>{{ package.route_list.length > 0 ? package.route_list[package.route_list.length - 1].location : "—" }}</td>           
+
+            <td>
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="updateStatus(package)">
+                    <mat-icon>update</mat-icon>
+                    <span>Update status</span>
+                </button>
+                <button mat-menu-item (click)="registerLocation(package)">
+                    <mat-icon>location_on</mat-icon>
+                    <span>Register location</span>
+                </button>
+                </mat-menu>
+            </td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+    <ng-template #noPackages>
+        <div class="alert alert-warning text-center mt-3 mx-3">
+        No active packages found.
+        </div>
+    </ng-template>
+    </section>
+    
