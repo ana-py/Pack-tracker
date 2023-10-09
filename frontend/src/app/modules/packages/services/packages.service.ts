@@ -26,6 +26,6 @@ export class PackagesService {
 
   get_packages_by_date(date: string): Observable<Package[]> {
     const params = new HttpParams().set('date', date);
-    return this.httpClient.get<Package[]>(`${this.baseUrl}/packages/date`);
+    return this.httpClient.get<Package[]>(`${this.baseUrl}/packages_by_date`, {params});
   }
 }

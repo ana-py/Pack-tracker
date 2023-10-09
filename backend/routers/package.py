@@ -60,4 +60,3 @@ def get_packages_by_date(date: str):
         item['_id'] = str(item['_id'])
     return JSONResponse(status_code=200, content=jsonable_encoder(result_list))
 
-
