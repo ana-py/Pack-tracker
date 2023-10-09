@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './modules/auth/guards/auth.guard';
+import { PermissionGuard } from './modules/shared/guards/permission.guard';
 
 const routes: Routes = [
   {
@@ -10,28 +11,22 @@ const routes: Routes = [
   {
     path:'',
     pathMatch:'full',
-    redirectTo:'packages'
+    redirectTo:''
   },
   {
     path:'',
     canActivate: [AuthGuard],
     children:[
       {
-        path:'admin/packages',
+        path:'packages',
         loadChildren: () => import('./modules/packages/packages.module').then(m => m.PackagesModule),
-        canActivate: [AuthGuard],
-        data: {permissions: ['admin']}
       },
       {
-        path:'admin/users',
+        path:'admin',
         loadChildren: () => import('./modules/users/users.module').then(m => m.UsersModule),
-        canActivate: [AuthGuard],
+        canActivate: [PermissionGuard],
         data: {permissions: ['admin']}
       },
-      // {
-      //   path: 'deliveryman/packages',
-      //   loadChildren: () => import('./modules/packages/packages.module').then(m => m.PackagesModule),
-      // }.
       {
         path:'**',
         redirectTo:'packages'

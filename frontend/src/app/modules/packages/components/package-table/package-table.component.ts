@@ -23,6 +23,7 @@ export class PackageTableComponent {
   callService(): void {
     this.packagesService.get_packages().
     subscribe((packages) => {
+      console.log("packages", packages)
       this.packages = packages;
     });
   } 

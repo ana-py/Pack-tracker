@@ -17,7 +17,7 @@ export class InterceptorService {
     if (!request.url.includes('auth')) {
       const token = this.credentialsService.token;
       const nHeaders: any = {
-        'app-token': token,
+        'Authorization': `Bearer ${token}`,
       };
       request.headers
         .keys()

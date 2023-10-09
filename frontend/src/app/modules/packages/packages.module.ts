@@ -9,13 +9,23 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { SelectDeliverymanComponent } from './components/select-deliveryman/select-deliveryman.component';
 import { UsersModule } from '../users/users.module';
+import { EditFieldComponent } from './components/edit-field/edit-field.component';
+import { DeliverymanPackagesPageComponent } from './pages/deliveryman-packages-page/deliveryman-packages-page.component';
+import { DeliveryPkgTableComponent } from './components/delivery-package-table/delivery-package-table.component';
+import { PackagesReportsPageComponent } from './pages/packages-reports-page/packages-reports-page.component';
+import { PackagesReportsComponent } from './components/packages-reports/packages-reports.component';
 
 @NgModule({
   declarations: [
     PackagesPageComponent,
     AddPackageComponent,
     PackageTableComponent,
-    SelectDeliverymanComponent
+    SelectDeliverymanComponent,
+    EditFieldComponent,
+    DeliverymanPackagesPageComponent,
+    DeliveryPkgTableComponent,
+    PackagesReportsPageComponent,
+    PackagesReportsComponent
   ],
   imports: [
     CommonModule,

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CredentialsService } from './modules/shared/services/credentials.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'frontend';
+  public token = this.credentialsService.token;
+  
+  constructor(public credentialsService: CredentialsService) { }
+  
 }

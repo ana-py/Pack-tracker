@@ -2,18 +2,31 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PackagesPageComponent } from './pages/packages-page/packages-page.component';
 import { RouterModule, Routes } from '@angular/router';
+import { PermissionGuard } from '../shared/guards/permission.guard';
+import { DeliverymanPackagesPageComponent } from './pages/deliveryman-packages-page/deliveryman-packages-page.component';
+import { PackagesReportsPageComponent } from './pages/packages-reports-page/packages-reports-page.component';
 
 const routes: Routes = [
   {
     path: "",
     children: [
       {
-        path: "",
+        path: "adminPackages",
         component: PackagesPageComponent,
+        canActivate: [PermissionGuard],
+        data: {permissions: ['admin']}
       },
       {
-        path: "**",
-        redirectTo: "packages",
+        path: "deliverymanPackages",
+        component: DeliverymanPackagesPageComponent,
+        canActivate: [PermissionGuard],
+        data: {permissions: ['deliveryman']}
+      },
+      {
+        path: "packagesReports",
+        component: PackagesReportsPageComponent,
+        canActivate: [PermissionGuard],
+        data: {permissions: ['admin']}
       },
     ],
   },

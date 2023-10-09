@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
@@ -10,22 +10,22 @@ export class PackagesService {
   baseUrl: string  = environment.baseUrl;
   constructor(
     private httpClient: HttpClient,
-    private credentialsService: CredentialsService
   ) { }
 
   get_packages(): Observable<Package[]> {
-    const token = this.credentialsService.token;
-    const headers = new HttpHeaders({
-        Authorization: `Bearer ${token}`,
-      });
-    return this.httpClient.get<Package[]>(`${this.baseUrl}/packages`, {headers});
+    return this.httpClient.get<Package[]>(`${this.baseUrl}/packages`);
   }
 
   add_package(package_: Package): Observable<Package> {
-    const token = this.credentialsService.token;
-    const headers = new HttpHeaders({
-        Authorization: `Bearer ${token}`,
-      });
-    return this.httpClient.post<Package>(`${this.baseUrl}/packages`, package_, {headers});
+    return this.httpClient.post<Package>(`${this.baseUrl}/packages`, package_);
+  }
+
+  get_active_packages(user_id:string): Observable<Package[]> {    
+    return this.httpClient.get<Package[]>(`${this.baseUrl}/packages/deliverymen/${user_id}`);
+  }
+
+  get_packages_by_date(date: string): Observable<Package[]> {
+    const params = new HttpParams().set('date', date);
+    return this.httpClient.get<Package[]>(`${this.baseUrl}/packages/date`);
   }
 }

@@ -11,7 +11,7 @@ import * as moment from 'moment';
   styleUrls: [ './add-package.component.css']
 })
 export class AddPackageComponent {
-  date = moment().format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
+  date = moment().format('DD-MM-YYYY');
 
   newPackageForm: FormGroup = this.fb.group({
     description: ['', Validators.required],
@@ -57,6 +57,11 @@ export class AddPackageComponent {
   saveData(): void {
     this.newPackageForm.markAllAsTouched();
     if (this.newPackageForm.invalid) return;
+
+    const date = this.newPackageForm.value.shipment_date;
+    this.newPackageForm.value.shipment_date = moment(date).format('DD-MM-YYYY');
+    console.log("form", this.newPackageForm.value);
+    console.log( this.newPackageForm.value.shipment_date)
     this.packagesService.add_package(this.newPackageForm.value)
     .subscribe((response) => {
       this.dialogRef.close(response);
@@ -74,11 +79,8 @@ export class AddPackageComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.newPackageForm.patchValue({
-          deliveryman: {
-            id: result._id,
-            name: result.name,
-          }});
+        this.newPackageForm.get('deliveryman')?.get('user_id')?.setValue(result._id);
+        this.newPackageForm.get('deliveryman')?.get('name')?.setValue(result.name);
         this.deliveryman.name = result.name;
         this.deliveryman.user_id = result._id;
       }

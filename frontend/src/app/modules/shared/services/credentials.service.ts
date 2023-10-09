@@ -54,7 +54,6 @@ export class CredentialsService {
   }
 
   navigatetoMainPage(role: string){
-    return role == 'admin' ? this.router.navigate(['/admin/packages']) : this.router.navigate(['/deliveryman/packages']);
-    
+    return role == 'admin' ? this.router.navigate(['/packages/adminPackages']) : this.router.navigate(['/packages/deliverymanPackages']);
   }
 }
