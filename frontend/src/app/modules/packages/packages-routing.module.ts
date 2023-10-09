@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PackagesPageComponent } from './pages/packages-page/packages-page.component';
+import { AdminPackagesPageComponent } from './pages/admin-packages-page/admin-packages-page.component';
 import { RouterModule, Routes } from '@angular/router';
 import { PermissionGuard } from '../shared/guards/permission.guard';
 import { DeliverymanPackagesPageComponent } from './pages/deliveryman-packages-page/deliveryman-packages-page.component';
@@ -12,7 +12,7 @@ const routes: Routes = [
     children: [
       {
         path: "adminPackages",
-        component: PackagesPageComponent,
+        component: AdminPackagesPageComponent,
         canActivate: [PermissionGuard],
         data: {permissions: ['admin']}
       },
@@ -28,6 +28,11 @@ const routes: Routes = [
         canActivate: [PermissionGuard],
         data: {permissions: ['admin']}
       },
+      {
+        path: "",
+        pathMatch: "full",
+        redirectTo: (localStorage.getItem('role') == 'admin') ? 'adminPackages' : 'deliverymanPackages'
+      }
     ],
   },
 ];

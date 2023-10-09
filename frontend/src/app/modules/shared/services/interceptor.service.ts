@@ -14,7 +14,7 @@ export class InterceptorService {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (!request.url.includes('auth')) {
+    if (!request.url.includes('auth') || !request.url.includes('public')) {
       const token = this.credentialsService.token;
       const nHeaders: any = {
         'Authorization': `Bearer ${token}`,

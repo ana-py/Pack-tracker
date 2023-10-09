@@ -39,9 +39,7 @@ export class LoginComponent {
       this.authService.get_credentials(this.loginForm.value)
       .subscribe((response) => {
           this.credentialsService.setCredentials(response);
-          console.log(this.credentialsService.role);
           this.credentialsService.navigatetoMainPage(response.role);
-          
         },
         (error) => {
           console.log(error);

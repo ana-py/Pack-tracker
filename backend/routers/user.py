@@ -39,10 +39,7 @@ def get_deliverymen(search: str = None):
     if not search:
         result = db.users.find({"role": "deliveryman"})
     else:
-        if ObjectId.is_valid(search):
-            result = db.users.find({"_id": ObjectId(search)})        
-        else:
-            result = db.users.find({"name": {"$regex": search}})        
+        result = db.users.find({"role": "deliveryman", "name": {"$regex": search}})     
     result_list = list(result)
     for item in result_list:
         item['_id'] = str(item['_id'])

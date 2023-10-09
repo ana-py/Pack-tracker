@@ -10,6 +10,7 @@ export interface Package {
     shipment_date: string;
     route_list:    RouteList[];
     deliveryman:   Deliveryman;
+    received_date?: string;
 }
 
 export interface Deliveryman {

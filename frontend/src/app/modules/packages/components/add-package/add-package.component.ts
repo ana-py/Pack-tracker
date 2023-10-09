@@ -28,7 +28,7 @@ export class AddPackageComponent {
         date: [this.date],
       })
     ]),
-    shipment_date: ['', Validators.required],
+    shipment_date: [new Date(), Validators.required],
     route_list: this.fb.array([  
       this.fb.group({
         location: ['', Validators.required],
@@ -50,19 +50,69 @@ export class AddPackageComponent {
     private fb: FormBuilder,
     private packagesService: PackagesService,
     public dialogRef: MatDialogRef<AddPackageComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Package,
+    @Inject(MAT_DIALOG_DATA) public pack: Package,
     public dialog: MatDialog,
-  ){}
+  ){
+    if(this.pack && this.pack._id){
+      this.loadForm(this.pack);
+      this.deliveryman.user_id = this.pack.deliveryman.user_id;
+      this.deliveryman.name = this.pack.deliveryman.name;
+    }
+  }
+
+  loadForm(pack: Package){
+    this.newPackageForm.reset({
+      description: pack.description,
+      size: pack.size,
+      sender: pack.sender,
+      receiver_info: {
+        name: pack.receiver_info.name,
+        address: pack.receiver_info.address,
+        email: pack.receiver_info.email,
+      },
+      status_list: [
+        {
+          status: pack.status_list[pack.status_list.length-1].status,
+          date: pack.status_list[pack.status_list.length-1].date,
+        }
+      ],
+      shipment_date: new Date(pack.shipment_date),
+      route_list: [
+        {
+          location: pack.route_list[pack.route_list.length-1].location,
+          date: pack.route_list[pack.route_list.length-1].date,
+        }
+      ],
+      deliveryman: {
+        user_id: pack.deliveryman.user_id,
+        name: pack.deliveryman.name,
+      },
+    });
+  }
 
   saveData(): void {
     this.newPackageForm.markAllAsTouched();
     if (this.newPackageForm.invalid) return;
 
     const date = this.newPackageForm.value.shipment_date;
-    this.newPackageForm.value.shipment_date = moment(date).format('DD-MM-YYYY');
-    console.log("form", this.newPackageForm.value);
-    console.log( this.newPackageForm.value.shipment_date)
+    this.newPackageForm.value.shipment_date = moment(date).format('YYYY-MM-DD')
+    if (this.pack && this.pack._id){
+      this.updatePackage();
+    } 
+    else{
+      this.createPackage();
+    }
+  }
+
+  createPackage(){
     this.packagesService.add_package(this.newPackageForm.value)
+    .subscribe((response) => {
+      this.dialogRef.close(response);
+    });
+  }
+
+  updatePackage(){
+    this.packagesService.update_package(this.pack._id!, this.newPackageForm.value)
     .subscribe((response) => {
       this.dialogRef.close(response);
     });

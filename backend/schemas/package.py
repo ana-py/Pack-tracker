@@ -19,7 +19,7 @@ class Status(BaseModel):
     date:       str
 
 class Package(BaseModel):
-    id:             Optional[str] = None
+    _id:             Optional[str] = None
     description:    str 
     size:           str
     sender:         str

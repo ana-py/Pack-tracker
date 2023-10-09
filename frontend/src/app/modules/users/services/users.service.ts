@@ -10,32 +10,18 @@ export class UsersService {
   baseUrl: string  = environment.baseUrl;
   constructor(
     private httpClient: HttpClient,
-    private credentialsService: CredentialsService
   ) { }
 
   get_deliveryman(search?: string): Observable<User[]> {
     let param = search ? `?search=${search}` : '';
-    const token = this.credentialsService.token;
-    const headers = new HttpHeaders({
-        Authorization: `Bearer ${token}`,
-      });
-
-    return this.httpClient.get<User[]>(`${this.baseUrl}/users/deliverymen${param}`, {headers});
+    return this.httpClient.get<User[]>(`${this.baseUrl}/users/deliverymen${param}`);
   }
 
   get_users(): Observable<User[]> {
-    const token = this.credentialsService.token;
-    const headers = new HttpHeaders({
-        Authorization: `Bearer ${token}`,
-      });
-    return this.httpClient.get<User[]>(`${this.baseUrl}/users`, {headers});
+    return this.httpClient.get<User[]>(`${this.baseUrl}/users`);
   }
 
   create_user(user: User): Observable<User> {
-    const token = this.credentialsService.token;
-    const headers = new HttpHeaders({
-        Authorization: `Bearer ${token}`,
-      });
-    return this.httpClient.post<User>(`${this.baseUrl}/users`, user, {headers});
+    return this.httpClient.post<User>(`${this.baseUrl}/users`, user);
   }
 }
